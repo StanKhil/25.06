@@ -29,12 +29,12 @@ namespace _25._06
 
         public Student(string surname, string name, string fatherName, DateTime birthDate,string address, string phoneNumber) : this()
         {
-            this.surname = surname;
-            this.name = name;
-            this.fatherName = fatherName;
-            this.birthDate = birthDate;
-            this.address = address;
-            this.phoneNumber = phoneNumber;
+            SetSurname(surname);
+            SetName(name);
+            SetFatherName(fatherName);
+            SetBirthDate(birthDate);
+            SetAddress(address);
+            SetPhoneNumber(phoneNumber);
         }
 
 

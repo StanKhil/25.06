@@ -21,9 +21,10 @@ namespace _25._06
 
         public Student()
         {
-            homework = new List<int>();
-            course = new List<int>();
-            exam = new List<int>();
+            SetHomework(new List<int>());
+            SetCourse(new List<int>());
+            SetExam(new List<int>());
+
         }
 
 
@@ -40,14 +41,14 @@ namespace _25._06
 
         public Student(string surname, string name, string fatherName, DateTime birthDate,string address, string phoneNumber, List<int> homework, List<int> course,List<int> exam) : this(surname, name, fatherName, birthDate, address, phoneNumber)
         {
-            if (homework != null)this.homework = homework;
-            else this.homework = new List<int>();
+            if (homework != null) SetHomework(homework);
+            else SetHomework(new List<int>());
 
-            if (course != null)this.course = course;
-            else this.course = new List<int>();
+            if (course != null) SetCourse(course);
+            else SetCourse(new List<int>());
 
-            if (exam != null)this.exam = exam;
-            else this.exam = new List<int>();
+            if (exam != null) SetExam(exam);
+            else SetExam(new List<int>());
         }
 
 

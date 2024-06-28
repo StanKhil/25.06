@@ -106,5 +106,18 @@ namespace _25._06
             }
             Console.WriteLine();
         }
+
+        public void UpdateStudent(string surname, string name, string fatherName, DateTime birthDate, string address, string phoneNumber, List<int> homework, List<int> course, List<int> exam)
+        {
+            SetSurname(surname);
+            SetName(name);
+            SetFatherName(fatherName);
+            SetBirthDate(birthDate);
+            SetAddress(address);
+            SetPhoneNumber(phoneNumber);
+            SetHomework(homework);
+            SetCourse(course);
+            SetExam(exam);
+        }
     }
 }

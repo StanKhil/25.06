@@ -140,6 +140,20 @@ namespace _25._06
                 Console.WriteLine("Invalid student index.");
             }
         }
+
+
+        public static bool operator ==(Group g1, Group g2)
+        {
+            if (ReferenceEquals(g1, g2)) return true;
+            if (ReferenceEquals(g1, null) || ReferenceEquals(g2, null)) return false;
+
+            return g1.groupName == g2.groupName && g1.specialization == g2.specialization && g1.countStudent == g2.countStudent && g1.students.SequenceEqual(g2.students);
+        }
+
+        public static bool operator !=(Group g1, Group g2)
+        {
+            return !(g1 == g2);
+        }
     }
     
 }

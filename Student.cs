@@ -119,5 +119,40 @@ namespace _25._06
             SetCourse(course);
             SetExam(exam);
         }
+
+
+        public static bool operator ==(Student s1, Student s2)
+        {
+            if (ReferenceEquals(s1, s2)) return true;
+            if (ReferenceEquals(s1, null) || ReferenceEquals(s2, null)) return false;
+
+            return s1.surname == s2.surname && s1.name == s2.name && s1.fatherName == s2.fatherName;
+        }
+
+        public static bool operator !=(Student s1, Student s2)
+        {
+            return !(s1 == s2);
+        }
+
+        public static bool operator >(Student s1, Student s2)
+        {
+            return (s1.homework.Sum()+s1.course.Sum() + s2.exam.Sum()) > (s2.homework.Sum() + s2.course.Sum() + s2.exam.Sum());
+        }
+
+        public static bool operator <(Student s1, Student s2)
+        {
+            return !(s1>s2);
+        }
+
+        public static bool operator true(Student s)
+        {
+            return s.homework.Count > 0 || s.course.Count > 0 || s.exam.Count > 0;
+        }
+
+        public static bool operator false(Student s)
+        {
+            return s.homework.Count == 0 || s.course.Count == 0 || s.exam.Count == 0;
+        }
+
     }
 }

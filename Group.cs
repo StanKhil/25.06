@@ -15,7 +15,7 @@ namespace _25._06
         Chemistry
     }
 
-    public class Group
+    public class Group : ICloneable, IComparable<Group>
     {
         private List<Student> students;
         private string groupName;
@@ -141,7 +141,6 @@ namespace _25._06
             }
         }
 
-
         public static bool operator ==(Group g1, Group g2)
         {
             if (ReferenceEquals(g1, g2)) return true;
@@ -153,6 +152,49 @@ namespace _25._06
         public static bool operator !=(Group g1, Group g2)
         {
             return !(g1 == g2);
+        }
+
+        public Student this[int index]
+        {
+            get 
+            {
+                if (index >= students.Count() || index < 0)
+                    return students[index];
+                else
+                    return students[0];
+            }
+
+            set 
+            { 
+                if(index>=students.Count() ||  index < 0)
+                students[index] = value;
+            }
+        }
+
+        public List<Student> this[string name]
+        {
+            get
+            {
+                List<Student> stud = new List<Student>();
+                foreach (var student in students)
+                {
+                    //Console.WriteLine(student.GetName());
+                    if(name == student.GetName()) stud.Add(student);
+
+                }
+                return stud;
+            }
+        }
+        public object Clone()
+        {
+            return new Group(this); 
+        }
+
+
+        public int CompareTo(Group other)
+        {
+            if (other == null) return 1;
+            return this.countStudent.CompareTo(other.countStudent);
         }
     }
     

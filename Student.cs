@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _25._06
 {
-    public class Student
+    public class Student : ICloneable, IComparable<Student>
     {
          string surname;
          string name;
@@ -27,7 +27,10 @@ namespace _25._06
 
         }
 
-
+        public override string ToString()
+        {
+            return name + " " + surname;
+        }
         public Student(string surname, string name, string fatherName, DateTime birthDate,string address, string phoneNumber) : this()
         {
             SetSurname(surname);
@@ -154,5 +157,20 @@ namespace _25._06
             return s.homework.Count == 0 || s.course.Count == 0 || s.exam.Count == 0;
         }
 
+        public object Clone()
+        {
+            return new Student(surname, name, fatherName, birthDate, address, phoneNumber,
+                new List<int>(homework), new List<int>(course), new List<int>(exam));
+        }
+
+        public int CompareTo(Student other)
+        {
+            if (other == null) return 1;
+
+            int thisSum = homework.Sum() + course.Sum() + exam.Sum();
+            int otherSum = other.homework.Sum() + other.course.Sum() + other.exam.Sum();
+
+            return thisSum.CompareTo(otherSum);
+        }
     }
 }

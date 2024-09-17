@@ -8,15 +8,26 @@
             Student student2 = new Student("Petrov", "Petr", "Petrovich", new DateTime(2001, 2, 2), "Chernomorsk", "0987654321", new List<int> { 10, 8, 9 }, new List<int> { 2, 11, 11 }, new List<int> { 9, 10, 11 });
 
            Student student3 = new Student("Smirnov", "Sergey", "Sergeevich", new DateTime(1999, 3, 3), "Kyiv", "111222333", new List<int> { 10, 9, 10 }, new List<int> { 9, 12, 11 }, new List<int> { 7, 10, 9 });
-            List<Student> students = new List<Student>();
-            students.Add(student1);
-            students.Add(student2);
-            students.Add(student3);
-            students.Sort();
-            foreach (Student student in students)
+
+            Group group = new Group();
+            group.AddStudent(student1);
+            group.AddStudent(student2);
+            group.AddStudent(student3);
+            foreach(var student in group)
             {
                 student.DisplayStudentInfo();
             }
+
+
+            /*List<Student> students = new List<Student>();
+            students.Add(student1);
+            students.Add(student2);
+            students.Add(student3);
+            students.Sort();*/
+            /*foreach (Student student in students)
+            {
+                student.DisplayStudentInfo();
+            }*/
             /*Group group = new Group();
             group.AddStudent(student1);
             group.AddStudent(student2);*/

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,13 @@ namespace _25._06
         Chemistry
     }
 
-    public class Group : ICloneable, IComparable<Group>
+    public class Group : ICloneable, IComparable<Group>,IEnumerable
     {
         private List<Student> students;
         private string groupName;
         private Specialization specialization;
         private int countStudent;
-
-
+        
         public string GetGroupName() { return groupName; }
         public void SetGroupName(string value) { groupName = value; }
 
@@ -196,6 +196,62 @@ namespace _25._06
             if (other == null) return 1;
             return this.countStudent.CompareTo(other.countStudent);
         }
+
+        public class GroupEnum : IEnumerator
+        {
+            public List<Student> studs;
+            int ind = -1;
+
+            public GroupEnum(List<Student> list)
+            {
+                studs = list;
+            }
+
+            public bool MoveNext()
+            {
+                ind++;
+                return (ind < studs.Count());
+            }
+
+            public void Reset()
+            {
+                ind = -1;
+            }
+
+            object IEnumerator.Current
+            {
+                get
+                {
+                    return Current;
+                }
+            }
+
+            public Student Current
+            {
+                get
+                {
+                    try
+                    {
+                        return studs[ind];
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        throw new InvalidOperationException();
+                    }
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator)GetEnumerator();
+        }
+
+        public GroupEnum GetEnumerator()
+        {
+            return new GroupEnum(students);
+        }
+
     }
-    
+
 }

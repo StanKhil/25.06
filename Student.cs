@@ -18,7 +18,22 @@ namespace _25._06
          List<int> course;
          List<int> exam;
 
-
+        public class SurnameCompare : IComparer<Student>
+        {
+            public int Compare(Student? a, Student? b)
+            {
+                return a.surname.CompareTo(b.surname);
+            }
+        }
+        public class AvgMarkCompare : IComparer<Student>
+        {
+            public int Compare(Student? a,Student? b)
+            {
+                if (a.exam.Average() > b.exam.Average()) return 1;
+                else if (a.exam.Average() < b.exam.Average()) return -1;
+                return 0;
+            }
+        }
         public Student()
         {
             SetHomework(new List<int>());

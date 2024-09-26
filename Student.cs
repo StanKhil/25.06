@@ -17,6 +17,12 @@ namespace _25._06
          List<int> homework;
          List<int> course;
          List<int> exam;
+         Student_sMother Mother;
+         Student_sFather Father;
+
+        public delegate void StudentDelegate();
+        public event StudentDelegate HighMarkEvent;
+        public event StudentDelegate LowMarkEvent;
 
         public class SurnameCompare : IComparer<Student>
         {
@@ -186,6 +192,38 @@ namespace _25._06
             int otherSum = other.homework.Sum() + other.course.Sum() + other.exam.Sum();
 
             return thisSum.CompareTo(otherSum);
+        }
+
+
+        public void AddParents(Student_sFather father,Student_sMother mother)
+        {
+            this.Mother=mother;
+            this.Father=father;
+        }
+
+        public void AddExamMark(int mark)
+        {
+            this.exam.Add(mark);
+            if (mark == 12 && HighMarkEvent != null)
+            {
+                HighMarkEvent();
+            }
+            else if (mark < 4 && LowMarkEvent != null)
+            {
+                LowMarkEvent();
+            }
+        }
+        public void LowMark()
+        {
+            this.surname = "I am stupid :(";
+        }
+        public void AddHomeWorkMark(int mark)
+        {
+            this.homework.Add(mark);
+        }
+        public void AddCourseMark(int mark)
+        {
+            this.course.Add(mark);
         }
     }
 }

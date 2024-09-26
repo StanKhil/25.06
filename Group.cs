@@ -22,7 +22,9 @@ namespace _25._06
         private string groupName;
         private Specialization specialization;
         private int countStudent;
-        
+
+        public event EventHandler<Student> StudentAdded;
+        public event EventHandler<Student> StudentRemoved;
         public string GetGroupName() { return groupName; }
         public void SetGroupName(string value) { groupName = value; }
 
@@ -70,6 +72,7 @@ namespace _25._06
         {
             students.Add(student);
             countStudent++;
+            OnStudentAdded(student);
         }
 
         public void EditGroup(string groupName, Specialization specialization, int countStudent)
@@ -87,6 +90,7 @@ namespace _25._06
                 targetGroup.AddStudent(student);
                 students.RemoveAt(index);
                 countStudent--;
+                OnStudentRemoved(student);
             }
             else
             {
@@ -102,6 +106,10 @@ namespace _25._06
                 if (student.GetExam().Average() >= 7)
                 {
                     passedStudents.Add(student);
+                }
+                else
+                {
+                    OnStudentRemoved(student); 
                 }
             }
             students = passedStudents;
@@ -120,6 +128,7 @@ namespace _25._06
                     double currentAvg = students[i].GetExam().Average();
                     if (currentAvg < avg)
                     {
+                        OnStudentRemoved(students[i]);
                         students.RemoveAt(i);
                         countStudent--;
                     }
@@ -252,6 +261,15 @@ namespace _25._06
             return new GroupEnum(students);
         }
 
+        protected virtual void OnStudentAdded(Student student)
+        {
+            Console.WriteLine("welcome");
+        }
+
+        protected virtual void OnStudentRemoved(Student student)
+        {
+            Console.WriteLine("unluck");
+        }
     }
 
 }

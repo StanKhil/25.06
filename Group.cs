@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace _25._06
@@ -18,28 +19,34 @@ namespace _25._06
 
     public class Group : ICloneable, IComparable<Group>,IEnumerable
     {
-        private List<Student> students;
-        private string groupName;
-        private Specialization specialization;
-        private int countStudent;
-
+        public string groupName { get; set; }
+        //public Specialization specialization { get; set; }
+        //public int countStudent => students.Count;
+        public List<Student> students { get; set; } = new List<Student>();
+        
+        public Group(string  groupName/*, Specialization specialization*/)
+        {
+            students=new List<Student>();
+            this.groupName = groupName;
+            //this.specialization = specialization;
+        }
         public event EventHandler<Student> StudentAdded;
         public event EventHandler<Student> StudentRemoved;
         public string GetGroupName() { return groupName; }
         public void SetGroupName(string value) { groupName = value; }
 
-        public Specialization GetSpecialization() { return specialization; }
-        public void SetSpecialization(Specialization value) { specialization = value; }
+        //public Specialization GetSpecialization() { return specialization; }
+        //public void SetSpecialization(Specialization value) { specialization = value; }
 
-        public int GetCountStudent() { return countStudent; }
-        public void SetCountStudent(int value) { countStudent = value; }
+        //public int GetCountStudent() { return countStudent; }
+        //public void SetCountStudent(int value) { countStudent = value; }
 
         public Group()
         {
             students = new List<Student>();
             groupName = "Default Group";
-            specialization = Specialization.ComputerScience;
-            countStudent = 0;
+            //specialization = Specialization.ComputerScience;
+            //countStudent = 0;
         }
 
         public Group(Group group)
@@ -47,17 +54,17 @@ namespace _25._06
             students = new List<Student>();
             foreach (var student in group.students)
             {
-                students.Add(new Student(student.GetSurname(), student.GetName(), student.GetFatherName(), student.GetBirthDate(), student.GetAddress(), student.GetPhoneNumber(), student.GetHomework(), student.GetCourse(), student.GetExam()));
+                students.Add(new Student(student.GetSurname(), student.GetName(), student.GetFatherName()/*, student.GetBirthDate()*/, student.GetAddress(), student.GetPhoneNumber(), student.GetHomework(), student.GetCourse(), student.GetExam()));
             }
 
             groupName = group.groupName;
-            specialization = group.specialization;
-            countStudent = group.countStudent;
+            //specialization = group.specialization;
+            //countStudent = group.countStudent;
         }
 
         public void Print()
         {
-            Console.WriteLine("Группа: {0}, Специализация: {1}, Количество студентов: {2}",groupName, specialization,countStudent);
+            Console.WriteLine("Группа: {0}, Специализация: {1}, Количество студентов: {2}",groupName/*, specialization*//*,countStudent*/);
             Console.WriteLine("Students:");
             Console.WriteLine();
             foreach (var student in students.OrderBy(s => s.GetSurname()))
@@ -71,7 +78,7 @@ namespace _25._06
         public void AddStudent(Student student)
         {
             students.Add(student);
-            countStudent++;
+            //countStudent++;
             OnStudentAdded(student);
         }
 
@@ -89,7 +96,7 @@ namespace _25._06
                 var student = students[index];
                 targetGroup.AddStudent(student);
                 students.RemoveAt(index);
-                countStudent--;
+                //countStudent--;
                 OnStudentRemoved(student);
             }
             else
@@ -113,7 +120,7 @@ namespace _25._06
                 }
             }
             students = passedStudents;
-            countStudent = students.Count;
+            //countStudent = students.Count;
         }
 
         public void ExpelAvg()
@@ -130,7 +137,7 @@ namespace _25._06
                     {
                         OnStudentRemoved(students[i]);
                         students.RemoveAt(i);
-                        countStudent--;
+                        //countStudent--;
                     }
                 }
 
@@ -155,7 +162,7 @@ namespace _25._06
             if (ReferenceEquals(g1, g2)) return true;
             if (ReferenceEquals(g1, null) || ReferenceEquals(g2, null)) return false;
 
-            return g1.groupName == g2.groupName && g1.specialization == g2.specialization && g1.countStudent == g2.countStudent && g1.students.SequenceEqual(g2.students);
+            return g1.groupName == g2.groupName && /*g1.specialization == g2.specialization &&*/ /*g1.countStudent == g2.countStudent*/  g1.students.SequenceEqual(g2.students);
         }
 
         public static bool operator !=(Group g1, Group g2)
@@ -203,7 +210,7 @@ namespace _25._06
         public int CompareTo(Group other)
         {
             if (other == null) return 1;
-            return this.countStudent.CompareTo(other.countStudent);
+            return this.students.Count.CompareTo(other.students.Count);
         }
 
         public class GroupEnum : IEnumerator

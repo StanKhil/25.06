@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace _25._06
 {
     public class Student : ICloneable, IComparable<Student>
     {
-         string surname;
-         string name;
-         string fatherName;
-         DateTime birthDate;
-         string address;
-         string phoneNumber;
-         List<int> homework;
-         List<int> course;
-         List<int> exam;
-         Student_sMother Mother;
-         Student_sFather Father;
+        public string surname { get; set; }
+        public string name { get; set; }
+        public string fatherName { get; set; }
+        //public DateTime birthDate { get; set; }
+        public string address { get; set; }
+        public string phoneNumber { get; set; }
+        public List<int> homework { get; set; } = new List<int>();
+        public List<int> course { get; set; } = new List<int>();
+        public List<int> exam { get; set; } = new List<int>();
+
+        Student_sMother Mother;
+        Student_sFather Father;
 
         public delegate void StudentDelegate();
         public event StudentDelegate HighMarkEvent;
@@ -52,18 +54,18 @@ namespace _25._06
         {
             return name + " " + surname;
         }
-        public Student(string surname, string name, string fatherName, DateTime birthDate,string address, string phoneNumber) : this()
+        public Student(string surname, string name, string fatherName/*, DateTime birthDate*/,string address, string phoneNumber) : this()
         {
             SetSurname(surname);
             SetName(name);
             SetFatherName(fatherName);
-            SetBirthDate(birthDate);
+            //SetBirthDate(birthDate);
             SetAddress(address);
             SetPhoneNumber(phoneNumber);
         }
 
 
-        public Student(string surname, string name, string fatherName, DateTime birthDate,string address, string phoneNumber, List<int> homework, List<int> course,List<int> exam) : this(surname, name, fatherName, birthDate, address, phoneNumber)
+        public Student(string surname, string name, string fatherName/*, DateTime birthDate*/,string address, string phoneNumber, List<int> homework, List<int> course,List<int> exam) : this(surname, name, fatherName/*, birthDate*/, address, phoneNumber)
         {
             if (homework != null) SetHomework(homework);
             else SetHomework(new List<int>());
@@ -85,8 +87,8 @@ namespace _25._06
         public string GetFatherName() { return fatherName; }
         public void SetFatherName(string x) { fatherName = x; }
 
-        public DateTime GetBirthDate() { return birthDate; }
-        public void SetBirthDate(DateTime x) { birthDate = x; }
+        //public DateTime GetBirthDate() { return birthDate; }
+        //public void SetBirthDate(DateTime x) { birthDate = x; }
 
         public string GetAddress() { return address; }
         public void SetAddress(string x) { address = x; }
@@ -108,7 +110,7 @@ namespace _25._06
             Console.WriteLine("Фамилия: {0}",surname);
             Console.WriteLine("Имя: {0}", name);
             Console.WriteLine("Отчество: {0}", fatherName);
-            Console.WriteLine("Дата рождения: {0}", birthDate.ToShortDateString());
+            //Console.WriteLine("Дата рождения: {0}", birthDate.ToShortDateString());
             Console.WriteLine("Домашний адрес: {0}", address);
             Console.WriteLine("Телефон: {0}", phoneNumber);
             Console.WriteLine("Оценки за дз:");
@@ -136,7 +138,7 @@ namespace _25._06
             SetSurname(surname);
             SetName(name);
             SetFatherName(fatherName);
-            SetBirthDate(birthDate);
+            //SetBirthDate(birthDate);
             SetAddress(address);
             SetPhoneNumber(phoneNumber);
             SetHomework(homework);
@@ -180,7 +182,7 @@ namespace _25._06
 
         public object Clone()
         {
-            return new Student(surname, name, fatherName, birthDate, address, phoneNumber,
+            return new Student(surname, name, fatherName/*, birthDate*/, address, phoneNumber,
                 new List<int>(homework), new List<int>(course), new List<int>(exam));
         }
 
